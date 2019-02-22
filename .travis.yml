@@ -2,4 +2,11 @@ notifications:
   email: false
 
 language: csharp
-solution: ./bayonet.sln
+mono: none
+dotnet: 2.1
+
+install:
+  - dotnet restore
+
+script:
+  - dotnet build
