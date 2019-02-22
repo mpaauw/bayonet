@@ -33,7 +33,8 @@ namespace bayonet.Core.Models
         public int Time { get; set; }
 
         /// <summary>
-        /// The comment, story or poll text. HTML.
+        /// The comment, story or poll text.
+        /// HTML.
         /// </summary>
         public string text { get; set; }
 
