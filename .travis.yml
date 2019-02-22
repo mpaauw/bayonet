@@ -1,0 +1,5 @@
+notifications:
+  email: false
+
+language: csharp
+solution: ./bayonet.sln
