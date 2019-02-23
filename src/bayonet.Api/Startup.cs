@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using bayonet.Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
@@ -18,6 +19,8 @@ namespace bayonet.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IWebService, WebService>();
+
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
             services.AddCors();
         }
