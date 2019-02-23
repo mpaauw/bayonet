@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bayonet.Api", "src\bayonet.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bayonet.Core", "src\bayonet.Core\bayonet.Core.csproj", "{905E70B7-39FA-4E60-8E2C-E600E491A7EB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bayonet.Data", "src\bayonet.Data\bayonet.Data.csproj", "{564F880B-E353-49E7-B644-A2632081F76F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{905E70B7-39FA-4E60-8E2C-E600E491A7EB}.Release|x64.Build.0 = Release|Any CPU
 		{905E70B7-39FA-4E60-8E2C-E600E491A7EB}.Release|x86.ActiveCfg = Release|Any CPU
 		{905E70B7-39FA-4E60-8E2C-E600E491A7EB}.Release|x86.Build.0 = Release|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Debug|x64.Build.0 = Debug|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Debug|x86.Build.0 = Debug|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Release|x64.ActiveCfg = Release|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Release|x64.Build.0 = Release|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Release|x86.ActiveCfg = Release|Any CPU
+		{564F880B-E353-49E7-B644-A2632081F76F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
