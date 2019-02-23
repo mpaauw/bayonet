@@ -11,22 +11,28 @@ using System.Threading.Tasks;
 namespace bayonet.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class StoriesController : Controller
+    public class ItemsController : Controller
     {
         private readonly IWebService webService;
 
-        public StoriesController(IWebService webService)
+        public ItemsController(IWebService webService)
         {
             this.webService = webService;
         }
 
-        [HttpGet("{storyType}/{count}")]
-        public async Task<Result<IEnumerable<Item>>> GetTopStories(
-            [FromRoute] string storyType,
-            [FromRoute] int count)
+        [HttpGet("{id}")]
+        public async Task<Result<Item>> GetItem([FromRoute] int id)
         {
-            var command = new GetStoriesCommand(this.webService, storyType, count);
+            var command = new GetItemCommand(this.webService, id);
             return await command.ExecuteAsync();
         }
+
+        [HttpGet("Max")]
+        public async Task<Result<Item>> GetMaxItem()
+        {
+            var command = new GetMaxItemCommand(this.webService);
+            return await command.ExecuteAsync();
+        }
+
     }
 }
