@@ -11,28 +11,20 @@ using System.Threading.Tasks;
 namespace bayonet.Api.Controllers
 {
     [Route("api/[controller]")]
-    public class ItemsController : Controller
+    public class UsersController : Controller
     {
         private readonly IWebService webService;
 
-        public ItemsController(IWebService webService)
+        public UsersController(IWebService webService)
         {
             this.webService = webService;
         }
 
         [HttpGet("{id}")]
-        public async Task<Result<Item>> GetItem([FromRoute] string id)
+        public async Task<Result<User>> GetUser([FromRoute] string id)
         {
-            var command = new GetItemCommand(this.webService, id);
+            var command = new GetUserCommand(this.webService, id);
             return await command.ExecuteAsync();
         }
-
-        [HttpGet("Max")]
-        public async Task<Result<Item>> GetMaxItem()
-        {
-            var command = new GetMaxItemCommand(this.webService);
-            return await command.ExecuteAsync();
-        }
-
     }
 }

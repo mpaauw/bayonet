@@ -39,7 +39,7 @@ namespace bayonet.Api.Commands
                     };
                 }
                 var stories = new List<Item>();
-                var storyIds = await this.webService.GetContentAsync<IEnumerable<int>>(Constants.StoriesEndpoint.Replace(Constants.Bayonet, this.storyType));
+                var storyIds = await this.webService.GetContentAsync<IEnumerable<string>>(Constants.StoriesEndpoint.Replace(Constants.Bayonet, this.storyType));
                 foreach (var id in storyIds.Take(this.count))
                 {
                     var getItemCommand = new GetItemCommand(this.webService, id);

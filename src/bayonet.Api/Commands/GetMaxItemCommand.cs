@@ -22,7 +22,7 @@ namespace bayonet.Api.Commands
         {
             try
             {
-                int id = await this.webService.GetContentAsync<int>(Constants.MaxItemEndpoint);
+                string id = await this.webService.GetContentAsync<string>(Constants.MaxItemEndpoint);
                 var getItemCommand = new GetItemCommand(this.webService, id);
                 var getItemCommandResult = await getItemCommand.ExecuteAsync();
                 var item = getItemCommandResult.Value;
