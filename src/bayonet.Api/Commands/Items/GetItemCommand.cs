@@ -7,28 +7,27 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bayonet.Api.Commands
+namespace bayonet.Api.Commands.Items
 {
-    public class GetMaxItemCommand : Command<Result<Item>>
+    public class GetItemCommand : Command<Result<Item>>
     {
         private readonly IWebService webService;
+        private readonly string id;
 
-        public GetMaxItemCommand(IWebService webService)
+        public GetItemCommand(IWebService webService, string id)
         {
             this.webService = webService;
+            this.id = id;
         }
 
         public override async Task<Result<Item>> ExecuteAsync()
         {
             try
             {
-                string id = await this.webService.GetContentAsync<string>(Constants.MaxItemEndpoint);
-                var getItemCommand = new GetItemCommand(this.webService, id);
-                var getItemCommandResult = await getItemCommand.ExecuteAsync();
-                var item = getItemCommandResult.Value;
+                var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, this.id));
                 return new Result<Item>()
                 {
-                    Value = item
+                    Value = item,
                 };
             }
             catch(Exception ex)

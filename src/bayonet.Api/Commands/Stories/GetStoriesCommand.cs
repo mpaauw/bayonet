@@ -1,4 +1,5 @@
-﻿using bayonet.Core.Common;
+﻿using bayonet.Api.Commands.Items;
+using bayonet.Core.Common;
 using bayonet.Core.Models;
 using bayonet.Core.Patterns;
 using bayonet.Data;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bayonet.Api.Commands
+namespace bayonet.Api.Commands.Stories
 {
     public class GetStoriesCommand : Command<Result<IEnumerable<Item>>>
     {
@@ -42,7 +43,7 @@ namespace bayonet.Api.Commands
                 var storyIds = await this.webService.GetContentAsync<IEnumerable<string>>(Constants.StoriesEndpoint.Replace(Constants.Bayonet, this.storyType));
                 foreach (var id in storyIds.Take(this.count))
                 {
-                    var getItemCommand = new GetItemCommand(this.webService, id);
+                    var getItemCommand = new GetItemCommand(webService, id);
                     var getItemCommandResult = await getItemCommand.ExecuteAsync();
                     stories.Add(getItemCommandResult.Value);
                 }

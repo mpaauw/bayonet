@@ -46,12 +46,12 @@ namespace bayonet.Core.Models
         /// <summary>
         /// The comment's parent: either another comment or the relevant story.
         /// </summary>
-        public Item Parent { get; set; }
+        public int Parent { get; set; }
 
         /// <summary>
         /// The pollopt's associated poll.
         /// </summary>
-        public Item Poll { get; set; }
+        public int Poll { get; set; }
 
         /// <summary>
         /// The ids of the item's comments, in ranked display order.
@@ -76,7 +76,7 @@ namespace bayonet.Core.Models
         /// <summary>
         /// A list of related pollopts, in display order.
         /// </summary>
-        public Item[] Parts { get; set; }
+        public int[] Parts { get; set; }
 
         /// <summary>
         /// In the case of stories or polls, the total comment count.

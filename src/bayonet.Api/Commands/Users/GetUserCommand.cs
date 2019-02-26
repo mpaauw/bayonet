@@ -7,32 +7,32 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bayonet.Api.Commands
+namespace bayonet.Api.Commands.Users
 {
-    public class GetItemCommand : Command<Result<Item>>
+    public class GetUserCommand : Command<Result<User>>
     {
         private readonly IWebService webService;
         private readonly string id;
 
-        public GetItemCommand(IWebService webService, string id)
+        public GetUserCommand(IWebService webService, string id)
         {
             this.webService = webService;
             this.id = id;
         }
 
-        public override async Task<Result<Item>> ExecuteAsync()
+        public override async Task<Result<User>> ExecuteAsync()
         {
             try
             {
-                var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, this.id));
-                return new Result<Item>()
+                var user = await this.webService.GetContentAsync<User>(Constants.UserEndpoint.Replace(Constants.Bayonet, this.id));
+                return new Result<User>()
                 {
-                    Value = item,
+                    Value = user
                 };
             }
             catch(Exception ex)
             {
-                return new Result<Item>()
+                return new Result<User>()
                 {
                     IsError = true,
                     ErrorMessage = ex.Message

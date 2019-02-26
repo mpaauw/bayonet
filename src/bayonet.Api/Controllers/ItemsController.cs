@@ -1,4 +1,5 @@
 ﻿using bayonet.Api.Commands;
+using bayonet.Api.Commands.Items;
 using bayonet.Core.Common;
 using bayonet.Core.Models;
 using bayonet.Data;
@@ -31,6 +32,13 @@ namespace bayonet.Api.Controllers
         public async Task<Result<Item>> GetMaxItem()
         {
             var command = new GetMaxItemCommand(this.webService);
+            return await command.ExecuteAsync();
+        }
+
+        [HttpGet("Updates/{count}")]
+        public async Task<Result<IEnumerable<Item>>> GetUpdatedItems([FromRoute] int count)
+        {
+            var command = new GetUpdatedItemsCommand(this.webService, count);
             return await command.ExecuteAsync();
         }
 
