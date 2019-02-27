@@ -21,6 +21,12 @@ namespace bayonet.Api.Controllers
             this.webService = webService;
         }
 
+        /// <summary>
+        /// Retrieves a number of Stories, based on type.
+        /// </summary>
+        /// <param name="storyType">The type of Stories to retrieve. Can consist of Top, New, Best, Ask, Show, or Job.</param>
+        /// <param name="count">The number of Stories to retrieve.</param>
+        /// <returns>A collection of Stories wrapped in a Result object.</returns>
         [HttpGet("{storyType}/{count}")]
         public async Task<Result<IEnumerable<Item>>> GetTopStories(
             [FromRoute] string storyType,

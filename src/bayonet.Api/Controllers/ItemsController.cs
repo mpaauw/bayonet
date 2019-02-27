@@ -21,6 +21,11 @@ namespace bayonet.Api.Controllers
             this.webService = webService;
         }
 
+        /// <summary>
+        /// Retrieves an Item given it's Id.
+        /// </summary>
+        /// <param name="id">String value representing the Id of the Item to retrieve.</param>
+        /// <returns>An Item wrapped in a Result object.</returns>
         [HttpGet("{id}")]
         public async Task<Result<Item>> GetItem([FromRoute] string id)
         {
@@ -28,6 +33,10 @@ namespace bayonet.Api.Controllers
             return await command.ExecuteAsync();
         }
 
+        /// <summary>
+        /// Retrieves the current max Item.
+        /// </summary>
+        /// <returns>An Item wrapped in a Result object.</returns>
         [HttpGet("Max")]
         public async Task<Result<Item>> GetMaxItem()
         {
@@ -35,6 +44,11 @@ namespace bayonet.Api.Controllers
             return await command.ExecuteAsync();
         }
 
+        /// <summary>
+        /// Retrieves a number of recently-updated Items.
+        /// </summary>
+        /// <param name="count">The number of recently-updated Items to retrieve.</param>
+        /// <returns>A collection of Items wrapped in a Result object.</returns>
         [HttpGet("Updates/{count}")]
         public async Task<Result<IEnumerable<Item>>> GetUpdatedItems([FromRoute] int count)
         {

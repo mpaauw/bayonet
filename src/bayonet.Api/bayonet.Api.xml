@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>bayonet.Api</name>
+    </assembly>
+    <members>
+        <member name="M:bayonet.Api.Controllers.ItemsController.GetItem(System.String)">
+            <summary>
+            Retrieves an Item given it's Id.
+            </summary>
+            <param name="id">String value representing the Id of the Item to retrieve.</param>
+            <returns>An Item wrapped in a Result object.</returns>
+        </member>
+        <member name="M:bayonet.Api.Controllers.ItemsController.GetMaxItem">
+            <summary>
+            Retrieves the current max Item.
+            </summary>
+            <returns>An Item wrapped in a Result object.</returns>
+        </member>
+        <member name="M:bayonet.Api.Controllers.ItemsController.GetUpdatedItems(System.Int32)">
+            <summary>
+            Retrieves a number of recently-updated Items.
+            </summary>
+            <param name="count">The number of recently-updated Items to retrieve.</param>
+            <returns>A collection of Items wrapped in a Result object.</returns>
+        </member>
+        <member name="M:bayonet.Api.Controllers.StoriesController.GetTopStories(System.String,System.Int32)">
+            <summary>
+            Retrieves a number of Stories, based on type.
+            </summary>
+            <param name="storyType">The type of Stories to retrieve. Can consist of Top, New, Best, Ask, Show, or Job.</param>
+            <param name="count">The number of Stories to retrieve.</param>
+            <returns>A collection of Stories wrapped in a Result object.</returns>
+        </member>
+        <member name="M:bayonet.Api.Controllers.UsersController.GetUser(System.String)">
+            <summary>
+            Retrieves a User, given that User's Id.
+            </summary>
+            <param name="id">Id of the User to retrieve.</param>
+            <returns>A User wrapped in a Result object.</returns>
+        </member>
+        <member name="M:bayonet.Api.Controllers.UsersController.GetUpdatedUsers(System.Int32)">
+            <summary>
+            Retrieves a number of recently-updated Users.
+            </summary>
+            <param name="count">The number of recently-updated Users to retrieve.</param>
+            <returns>A collection of Users wrapped in a Result object.</returns>
+        </member>
+    </members>
+</doc>
