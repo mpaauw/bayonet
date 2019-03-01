@@ -1,6 +1,6 @@
-﻿using bayonet.Core.Common;
+﻿using AndyC.Patterns.Commands;
+using bayonet.Core.Common;
 using bayonet.Core.Models;
-using bayonet.Core.Patterns;
 using bayonet.Data;
 using System;
 using System.Collections.Generic;
@@ -9,34 +9,42 @@ using System.Threading.Tasks;
 
 namespace bayonet.Api.Commands.Items
 {
-    public class GetItemCommand : Command<Result<Item>>
+    public class GetItemCommand : IFunction<Result<Item>>
     {
-        private readonly IWebService webService;
         private readonly string id;
 
-        public GetItemCommand(IWebService webService, string id)
+        public GetItemCommand(string id)
         {
-            this.webService = webService;
             this.id = id;
         }
 
-        public override async Task<Result<Item>> ExecuteAsync()
+        public class Handler : IFunctionHandlerAsync<GetItemCommand, Result<Item>>
         {
-            try
+            private readonly IWebService webService;
+
+            public Handler(IWebService webService)
             {
-                var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, this.id));
-                return new Result<Item>()
-                {
-                    Value = item,
-                };
+                this.webService = webService;
             }
-            catch(Exception ex)
+
+            public async Task<Result<Item>> ExecuteAsync(GetItemCommand function)
             {
-                return new Result<Item>()
+                try
                 {
-                    IsError = true,
-                    ErrorMessage = ex.Message
-                };
+                    var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, function.id));
+                    return new Result<Item>()
+                    {
+                        Value = item,
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new Result<Item>()
+                    {
+                        IsError = true,
+                        ErrorMessage = ex.Message
+                    };
+                }
             }
         }
     }

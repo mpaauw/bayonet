@@ -1,7 +1,7 @@
-﻿using bayonet.Api.Commands.Items;
+﻿using AndyC.Patterns.Commands;
+using bayonet.Api.Commands.Items;
 using bayonet.Core.Common;
 using bayonet.Core.Models;
-using bayonet.Core.Patterns;
 using bayonet.Data;
 using System;
 using System.Collections.Generic;
@@ -11,55 +11,59 @@ using System.Threading.Tasks;
 
 namespace bayonet.Api.Commands.Stories
 {
-    public class GetStoriesCommand : Command<Result<IEnumerable<Item>>>
+    public class GetStoriesCommand : IFunction<Result<IEnumerable<Item>>>
     {
-        private readonly IWebService webService;
         private readonly string storyType;
         private readonly int count;
         
-        public GetStoriesCommand(
-            IWebService webService,
-            string storyType,
-            int count)
+        public GetStoriesCommand(string storyType, int count)
         {
-            this.webService = webService;
             this.storyType = BayonetHelper.FormatStoryType(storyType);
             this.count = count;
         }
 
-        public override async Task<Result<IEnumerable<Item>>> ExecuteAsync()
+        public class Handler : IFunctionHandlerAsync<GetStoriesCommand, Result<IEnumerable<Item>>>
         {
-            try
+            private readonly IWebService webService;
+
+            public Handler(IWebService webService)
             {
-                if(!BayonetHelper.ValidateStoryType(storyType))
+                this.webService = webService;
+            }
+
+            public async Task<Result<IEnumerable<Item>>> ExecuteAsync(GetStoriesCommand function)
+            {
+                try
+                {
+                    if (!BayonetHelper.ValidateStoryType(function.storyType))
+                    {
+                        return new Result<IEnumerable<Item>>()
+                        {
+                            IsError = true,
+                            ErrorMessage = "Invalid Story Type."
+                        };
+                    }
+                    var stories = new List<Item>();
+                    var storyIds = await this.webService.GetContentAsync<IEnumerable<string>>(Constants.StoriesEndpoint.Replace(Constants.Bayonet, function.storyType));
+                    foreach (var id in storyIds.Take(function.count))
+                    {
+                        var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, id));
+                        stories.Add(item);
+                    }
+
+                    return new Result<IEnumerable<Item>>()
+                    {
+                        Value = stories
+                    };
+                }
+                catch (Exception ex)
                 {
                     return new Result<IEnumerable<Item>>()
                     {
                         IsError = true,
-                        ErrorMessage = "Invalid Story Type."
+                        ErrorMessage = ex.Message
                     };
                 }
-                var stories = new List<Item>();
-                var storyIds = await this.webService.GetContentAsync<IEnumerable<string>>(Constants.StoriesEndpoint.Replace(Constants.Bayonet, this.storyType));
-                foreach (var id in storyIds.Take(this.count))
-                {
-                    var getItemCommand = new GetItemCommand(webService, id);
-                    var getItemCommandResult = await getItemCommand.ExecuteAsync();
-                    stories.Add(getItemCommandResult.Value);
-                }
-
-                return new Result<IEnumerable<Item>>()
-                {
-                    Value = stories
-                };
-            }
-            catch (Exception ex)
-            {
-                return new Result<IEnumerable<Item>>()
-                {
-                    IsError = true,
-                    ErrorMessage = ex.Message
-                };
             }
         }
     }

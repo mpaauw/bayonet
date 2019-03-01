@@ -1,6 +1,6 @@
-﻿using bayonet.Core.Common;
+﻿using AndyC.Patterns.Commands;
+using bayonet.Core.Common;
 using bayonet.Core.Models;
-using bayonet.Core.Patterns;
 using bayonet.Data;
 using System;
 using System.Collections.Generic;
@@ -9,35 +9,36 @@ using System.Threading.Tasks;
 
 namespace bayonet.Api.Commands.Items
 {
-    public class GetMaxItemCommand : Command<Result<Item>>
+    public class GetMaxItemCommand : IFunction<Result<Item>>
     {
-        private readonly IWebService webService;
-
-        public GetMaxItemCommand(IWebService webService)
+        public class Handler : IFunctionHandlerAsync<GetMaxItemCommand, Result<Item>>
         {
-            this.webService = webService;
-        }
+            private readonly IWebService webService;
 
-        public override async Task<Result<Item>> ExecuteAsync()
-        {
-            try
+            public Handler(IWebService webService)
             {
-                string id = await this.webService.GetContentAsync<string>(Constants.MaxItemEndpoint);
-                var getItemCommand = new GetItemCommand(this.webService, id);
-                var getItemCommandResult = await getItemCommand.ExecuteAsync();
-                var item = getItemCommandResult.Value;
-                return new Result<Item>()
-                {
-                    Value = item
-                };
+                this.webService = webService;
             }
-            catch(Exception ex)
+
+            public async Task<Result<Item>> ExecuteAsync(GetMaxItemCommand function)
             {
-                return new Result<Item>()
+                try
                 {
-                    IsError = true,
-                    ErrorMessage = ex.Message
-                };
+                    string id = await this.webService.GetContentAsync<string>(Constants.MaxItemEndpoint);
+                    var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, id));
+                    return new Result<Item>()
+                    {
+                        Value = item
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new Result<Item>()
+                    {
+                        IsError = true,
+                        ErrorMessage = ex.Message
+                    };
+                }
             }
         }
     }

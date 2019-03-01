@@ -1,4 +1,6 @@
-﻿using bayonet.Data;
+﻿using AndyC.Patterns.Commands;
+using bayonet.Api.Patterns;
+using bayonet.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,12 +27,15 @@ namespace bayonet.Api
             services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2);
             services.AddCors();
 
+            services.AddScoped<ICommandRouter, CommandRouter>();
+            services.AddSingleton<ICommandHandlerFactory, CommandHandlerFactory>();
+
             services.AddSingleton<IWebService, WebService>();
+
             services.AddSwaggerGen(x =>
             {
                 x.SwaggerDoc("v1", new Info { Title = "bayonet", Version = "v1" });
 
-                //var path = Path.Combine(System.AppContext.BaseDirectory, "*.xml");
                 string appPath = PlatformServices.Default.Application.ApplicationBasePath;
                 foreach(string item in Directory.EnumerateFiles(appPath, "*.xml"))
                 {
