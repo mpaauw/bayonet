@@ -5,6 +5,7 @@ using bayonet.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,16 @@ namespace bayonet.Api.Commands.Items
             {
                 try
                 {
+                    if(!BayonetHelper.ValidateCount(function.count))
+                    {
+                        return new Result<IEnumerable<Item>>()
+                        {
+                            StatusCode = HttpStatusCode.BadRequest,
+                            IsError = true,
+                            ErrorMessage = "Invalid count."
+                        };
+                    }
+
                     var updates = await this.webService.GetContentAsync<Updates>(Constants.UpdatesEndpoint);
                     var updatedItems = new List<Item>();
                     foreach (var itemId in updates.Items.Take(function.count))
@@ -41,6 +52,7 @@ namespace bayonet.Api.Commands.Items
                     }
                     return new Result<IEnumerable<Item>>()
                     {
+                        StatusCode = HttpStatusCode.OK,
                         Value = updatedItems
                     };
                 }
@@ -48,6 +60,7 @@ namespace bayonet.Api.Commands.Items
                 {
                     return new Result<IEnumerable<Item>>()
                     {
+                        StatusCode = HttpStatusCode.InternalServerError,
                         IsError = true,
                         ErrorMessage = ex.Message
                     };

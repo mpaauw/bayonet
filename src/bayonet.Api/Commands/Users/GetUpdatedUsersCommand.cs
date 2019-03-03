@@ -5,6 +5,7 @@ using bayonet.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,15 @@ namespace bayonet.Api.Commands.Users
             {
                 try
                 {
+                    if(!BayonetHelper.ValidateCount(function.count))
+                    {
+                        return new Result<IEnumerable<User>>()
+                        {
+                            StatusCode = HttpStatusCode.BadRequest,
+                            IsError = true,
+                            ErrorMessage = "Invalid count."
+                        };
+                    }
                     var updates = await this.webService.GetContentAsync<Updates>(Constants.UpdatesEndpoint);
                     var updatedUsers = new List<User>();
                     foreach (var userId in updates.Profiles.Take(function.count))
@@ -41,6 +51,7 @@ namespace bayonet.Api.Commands.Users
                     }
                     return new Result<IEnumerable<User>>()
                     {
+                        StatusCode = HttpStatusCode.OK,
                         Value = updatedUsers
                     };
                 }
@@ -48,6 +59,7 @@ namespace bayonet.Api.Commands.Users
                 {
                     return new Result<IEnumerable<User>>()
                     {
+                        StatusCode = HttpStatusCode.InternalServerError,
                         IsError = true,
                         ErrorMessage = ex.Message
                     };

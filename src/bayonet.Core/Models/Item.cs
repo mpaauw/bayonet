@@ -36,7 +36,7 @@ namespace bayonet.Core.Models
         /// The comment, story or poll text.
         /// HTML.
         /// </summary>
-        public string text { get; set; }
+        public string Text { get; set; }
 
         /// <summary>
         /// True if the item is dead.
@@ -76,7 +76,7 @@ namespace bayonet.Core.Models
         /// <summary>
         /// A list of related pollopts, in display order.
         /// </summary>
-        public int[] Parts { get; set; }
+        public string[] Parts { get; set; }
 
         /// <summary>
         /// In the case of stories or polls, the total comment count.

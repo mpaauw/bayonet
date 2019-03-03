@@ -17,5 +17,15 @@ namespace bayonet.Core.Common
         {
             return Enum.GetNames(typeof(StoryType)).Contains(typeString);
         }
+
+        public static bool ValidateId(string id)
+        {
+            return (String.IsNullOrEmpty(id) || String.IsNullOrWhiteSpace(id)) ? false : true;
+        }
+
+        public static bool ValidateCount(int count)
+        {
+            return (count < 1) ? false : true;
+        }
     }
 }

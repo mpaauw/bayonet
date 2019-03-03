@@ -4,6 +4,7 @@ using bayonet.Core.Models;
 using bayonet.Data;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,6 +29,7 @@ namespace bayonet.Api.Commands.Items
                     var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, id));
                     return new Result<Item>()
                     {
+                        StatusCode = HttpStatusCode.OK,
                         Value = item
                     };
                 }
@@ -35,6 +37,7 @@ namespace bayonet.Api.Commands.Items
                 {
                     return new Result<Item>()
                     {
+                        StatusCode = HttpStatusCode.InternalServerError,
                         IsError = true,
                         ErrorMessage = ex.Message
                     };
