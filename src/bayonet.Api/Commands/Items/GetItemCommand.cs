@@ -4,6 +4,7 @@ using bayonet.Core.Models;
 using bayonet.Data;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,16 +32,27 @@ namespace bayonet.Api.Commands.Items
             {
                 try
                 {
+                    if(!BayonetHelper.ValidateId(function.id))
+                    {
+                        return new Result<Item>()
+                        {
+                            StatusCode = HttpStatusCode.BadRequest,
+                            IsError = true,
+                            ErrorMessage = "Invalid id."
+                        };
+                    }
                     var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, function.id));
                     return new Result<Item>()
                     {
-                        Value = item,
+                        StatusCode = HttpStatusCode.OK,
+                        Value = item
                     };
                 }
                 catch (Exception ex)
                 {
                     return new Result<Item>()
                     {
+                        StatusCode = HttpStatusCode.InternalServerError,
                         IsError = true,
                         ErrorMessage = ex.Message
                     };
