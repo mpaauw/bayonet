@@ -7,39 +7,28 @@ using Xunit;
 
 namespace bayonet.Api.Tests.Items
 {
-    public class GetItemCommandTests
+    public class GetMaxItemCommandTests
     {
-        private readonly GetItemCommandFixture fixture;
+        private readonly GetMaxItemCommandFixture fixture;
 
-        public GetItemCommandTests()
+        public GetMaxItemCommandTests()
         {
-            this.fixture = new GetItemCommandFixture();
-        }
-
-        [Fact]
-        public async Task Invalid_Id_Should_Return_Bad_Request()
-        {
-            var result = await this.fixture
-                .WithInvalidId()
-                .ExecuteCommandUnderTest();
-            Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
+            this.fixture = new GetMaxItemCommandFixture();
         }
 
         [Fact]
         public async Task Encountering_Exception_Should_Return_Server_Error()
         {
             var result = await this.fixture
-                .WithValidId()
                 .WithWebServiceGetContentAsyncExceptionEncountered()
                 .ExecuteCommandUnderTest();
             Assert.Equal(HttpStatusCode.InternalServerError, result.StatusCode);
         }
 
         [Fact]
-        public async Task Valid_Id_Should_Return_Ok()
+        public async Task Valid_Request_Should_Return_Ok()
         {
             var result = await this.fixture
-                .WithValidId()
                 .WithValidWebServiceGetContentAsyncResponse()
                 .ExecuteCommandUnderTest();
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
