@@ -37,6 +37,6 @@ namespace bayonet.Core.Models
         /// <summary>
         /// List of the user's stories, polls and comments.
         /// </summary>
-        public int[] Submitted { get; set; }
+        public string[] Submitted { get; set; }
     }
 }
