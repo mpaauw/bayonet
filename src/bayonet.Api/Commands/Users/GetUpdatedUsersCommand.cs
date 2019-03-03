@@ -1,6 +1,6 @@
-﻿using bayonet.Core.Common;
+﻿using AndyC.Patterns.Commands;
+using bayonet.Core.Common;
 using bayonet.Core.Models;
-using bayonet.Core.Patterns;
 using bayonet.Data;
 using System;
 using System.Collections.Generic;
@@ -10,41 +10,48 @@ using System.Threading.Tasks;
 
 namespace bayonet.Api.Commands.Users
 {
-    public class GetUpdatedUsersCommand : Command<Result<IEnumerable<User>>>
+    public class GetUpdatedUsersCommand : IFunction<Result<IEnumerable<User>>>
     {
-        private readonly IWebService webService;
         private readonly int count;
 
-        public GetUpdatedUsersCommand(IWebService webService, int count)
+        public GetUpdatedUsersCommand(int count)
         {
-            this.webService = webService;
             this.count = count;
         }
 
-        public override async Task<Result<IEnumerable<User>>> ExecuteAsync()
+        public class Handler : IFunctionHandlerAsync<GetUpdatedUsersCommand, Result<IEnumerable<User>>>
         {
-            try
+            private readonly IWebService webService;
+
+            public Handler(IWebService webService)
             {
-                var updates = await this.webService.GetContentAsync<Updates>(Constants.UpdatesEndpoint);
-                var updatedUsers = new List<User>();
-                foreach (var userId in updates.Profiles.Take(this.count))
-                {
-                    var getUserCommand = new GetUserCommand(this.webService, userId);
-                    var getUserCommandResult = await getUserCommand.ExecuteAsync();
-                    updatedUsers.Add(getUserCommandResult.Value);
-                }
-                return new Result<IEnumerable<User>>()
-                {
-                    Value = updatedUsers
-                };
+                this.webService = webService;
             }
-            catch(Exception ex)
+
+            public async Task<Result<IEnumerable<User>>> ExecuteAsync(GetUpdatedUsersCommand function)
             {
-                return new Result<IEnumerable<User>>()
+                try
                 {
-                    IsError = true,
-                    ErrorMessage = ex.Message
-                };
+                    var updates = await this.webService.GetContentAsync<Updates>(Constants.UpdatesEndpoint);
+                    var updatedUsers = new List<User>();
+                    foreach (var userId in updates.Profiles.Take(function.count))
+                    {
+                        var user = await this.webService.GetContentAsync<User>(Constants.UserEndpoint.Replace(Constants.Bayonet, userId));
+                        updatedUsers.Add(user);
+                    }
+                    return new Result<IEnumerable<User>>()
+                    {
+                        Value = updatedUsers
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new Result<IEnumerable<User>>()
+                    {
+                        IsError = true,
+                        ErrorMessage = ex.Message
+                    };
+                }
             }
         }
     }

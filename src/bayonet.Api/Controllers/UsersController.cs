@@ -1,4 +1,5 @@
-﻿using bayonet.Api.Commands;
+﻿using AndyC.Patterns.Commands;
+using bayonet.Api.Commands;
 using bayonet.Api.Commands.Users;
 using bayonet.Core.Common;
 using bayonet.Core.Models;
@@ -14,11 +15,11 @@ namespace bayonet.Api.Controllers
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
-        private readonly IWebService webService;
+        private readonly ICommandRouter commandRouter;
 
-        public UsersController(IWebService webService)
+        public UsersController(ICommandRouter commandRouter)
         {
-            this.webService = webService;
+            this.commandRouter = commandRouter;
         }
 
         /// <summary>
@@ -29,8 +30,8 @@ namespace bayonet.Api.Controllers
         [HttpGet("{id}")]
         public async Task<Result<User>> GetUser([FromRoute] string id)
         {
-            var command = new GetUserCommand(this.webService, id);
-            return await command.ExecuteAsync();
+            var command = new GetUserCommand(id);
+            return await this.commandRouter.ExecuteFunctionAsync(command);
         }
 
         /// <summary>
@@ -41,8 +42,8 @@ namespace bayonet.Api.Controllers
         [HttpGet("Updates/{count}")]
         public async Task<Result<IEnumerable<User>>> GetUpdatedUsers([FromRoute] int count)
         {
-            var command = new GetUpdatedUsersCommand(this.webService, count);
-            return await command.ExecuteAsync();
+            var command = new GetUpdatedUsersCommand(count);
+            return await this.commandRouter.ExecuteFunctionAsync(command);
         }
     }
 }

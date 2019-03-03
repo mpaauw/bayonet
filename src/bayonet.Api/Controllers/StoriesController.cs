@@ -1,4 +1,5 @@
-﻿using bayonet.Api.Commands;
+﻿using AndyC.Patterns.Commands;
+using bayonet.Api.Commands;
 using bayonet.Api.Commands.Stories;
 using bayonet.Core.Common;
 using bayonet.Core.Models;
@@ -14,11 +15,11 @@ namespace bayonet.Api.Controllers
     [Route("api/[controller]")]
     public class StoriesController : Controller
     {
-        private readonly IWebService webService;
+        private readonly ICommandRouter commandRouter;
 
-        public StoriesController(IWebService webService)
+        public StoriesController(ICommandRouter commandRouter)
         {
-            this.webService = webService;
+            this.commandRouter = commandRouter;
         }
 
         /// <summary>
@@ -32,8 +33,8 @@ namespace bayonet.Api.Controllers
             [FromRoute] string storyType,
             [FromRoute] int count)
         {
-            var command = new GetStoriesCommand(this.webService, storyType, count);
-            return await command.ExecuteAsync();
+            var command = new GetStoriesCommand(storyType, count);
+            return await this.commandRouter.ExecuteFunctionAsync(command);
         }
     }
 }
