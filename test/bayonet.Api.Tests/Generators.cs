@@ -8,6 +8,18 @@ namespace bayonet.Api.Tests
 {
     public static class Generators
     {
+        public static Faker<Item>[] FakeItems(int count = -1)
+        {
+            Faker faker = new Faker();
+            count = (count == -1) ? faker.Random.Int(1, 10) : count;
+            Faker<Item>[] fakeItems = new Faker<Item>[count];
+            for(int i = 0; i < fakeItems.Length; i++)
+            {
+                fakeItems[i] = FakeItem();
+            }
+            return fakeItems;
+        }
+
         public static Faker<Item> FakeItem()
         {
             return new Faker<Item>()
@@ -25,6 +37,13 @@ namespace bayonet.Api.Tests
                 .RuleFor(t => t.Score, f => f.Random.Int())
                 .RuleFor(t => t.Parts, f => f.Lorem.Words())
                 .RuleFor(t => t.Descendants, f => f.Random.Int());
+        }
+
+        public static Faker<Updates> FakeUpdates()
+        {
+            return new Faker<Updates>()
+                .RuleFor(t => t.Items, f => f.Lorem.Words())
+                .RuleFor(t => t.Profiles, f => f.Lorem.Words());
         }
     }
 }

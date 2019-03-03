@@ -39,7 +39,7 @@ namespace bayonet.Api.Commands.Items
                         {
                             StatusCode = HttpStatusCode.BadRequest,
                             IsError = true,
-                            ErrorMessage = "Invalid id."
+                            ErrorMessage = "Invalid count."
                         };
                     }
 

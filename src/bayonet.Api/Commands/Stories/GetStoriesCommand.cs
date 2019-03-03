@@ -6,6 +6,7 @@ using bayonet.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,8 +40,18 @@ namespace bayonet.Api.Commands.Stories
                     {
                         return new Result<IEnumerable<Item>>()
                         {
+                            StatusCode = HttpStatusCode.BadRequest,
                             IsError = true,
                             ErrorMessage = "Invalid Story Type."
+                        };
+                    }
+                    if(!BayonetHelper.ValidateCount(function.count))
+                    {
+                        return new Result<IEnumerable<Item>>()
+                        {
+                            StatusCode = HttpStatusCode.BadRequest,
+                            IsError = true,
+                            ErrorMessage = "Invalid count."
                         };
                     }
                     var stories = new List<Item>();
@@ -53,6 +64,7 @@ namespace bayonet.Api.Commands.Stories
 
                     return new Result<IEnumerable<Item>>()
                     {
+                        StatusCode = HttpStatusCode.OK,
                         Value = stories
                     };
                 }
@@ -60,6 +72,7 @@ namespace bayonet.Api.Commands.Stories
                 {
                     return new Result<IEnumerable<Item>>()
                     {
+                        StatusCode = HttpStatusCode.InternalServerError,
                         IsError = true,
                         ErrorMessage = ex.Message
                     };
