@@ -45,5 +45,16 @@ namespace bayonet.Api.Tests
                 .RuleFor(t => t.Items, f => f.Lorem.Words())
                 .RuleFor(t => t.Profiles, f => f.Lorem.Words());
         }
+
+        public static Faker<User> FakeUser()
+        {
+            return new Faker<User>()
+                .RuleFor(t => t.Id, f => f.Lorem.Word())
+                .RuleFor(t => t.Delay, f => f.Random.Int())
+                .RuleFor(t => t.Created, f => f.Random.Int())
+                .RuleFor(t => t.Karma, f => f.Random.Int())
+                .RuleFor(t => t.About, f => f.Hacker.Phrase())
+                .RuleFor(t => t.Submitted, f => f.Lorem.Words());
+        }
     }
 }
