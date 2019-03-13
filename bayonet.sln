@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bayonet.Data", "src\bayonet
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bayonet.Api.Tests", "test\bayonet.Api.Tests\bayonet.Api.Tests.csproj", "{5E5CCA21-798D-490B-9AD3-A920D4308EB4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bayonet.Core.Tests", "test\bayonet.Core.Tests\bayonet.Core.Tests.csproj", "{B6B126DA-C134-47AA-BC99-659BAEA4C50E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{5E5CCA21-798D-490B-9AD3-A920D4308EB4}.Release|x64.Build.0 = Release|Any CPU
 		{5E5CCA21-798D-490B-9AD3-A920D4308EB4}.Release|x86.ActiveCfg = Release|Any CPU
 		{5E5CCA21-798D-490B-9AD3-A920D4308EB4}.Release|x86.Build.0 = Release|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Debug|x64.Build.0 = Debug|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Debug|x86.Build.0 = Debug|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Release|x64.ActiveCfg = Release|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Release|x64.Build.0 = Release|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Release|x86.ActiveCfg = Release|Any CPU
+		{B6B126DA-C134-47AA-BC99-659BAEA4C50E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
