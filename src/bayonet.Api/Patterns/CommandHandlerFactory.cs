@@ -7,7 +7,6 @@ using bayonet.Core.Models;
 using bayonet.Data;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace bayonet.Api.Patterns
 {

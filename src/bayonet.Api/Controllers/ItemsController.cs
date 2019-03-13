@@ -1,13 +1,9 @@
 ﻿using AndyC.Patterns.Commands;
-using bayonet.Api.Commands;
 using bayonet.Api.Commands.Items;
 using bayonet.Core.Common;
 using bayonet.Core.Models;
-using bayonet.Data;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace bayonet.Api.Controllers

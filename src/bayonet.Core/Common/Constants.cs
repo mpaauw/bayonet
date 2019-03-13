@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace bayonet.Core.Common
+﻿namespace bayonet.Core.Common
 {
     public static class Constants
     {
