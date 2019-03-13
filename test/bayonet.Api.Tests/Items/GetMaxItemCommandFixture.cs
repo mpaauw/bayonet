@@ -4,8 +4,6 @@ using bayonet.Core.Models;
 using bayonet.Data;
 using FakeItEasy;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace bayonet.Api.Tests.Items

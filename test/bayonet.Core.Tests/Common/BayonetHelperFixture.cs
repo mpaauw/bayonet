@@ -2,8 +2,6 @@
 using bayonet.Core.Models;
 using Bogus;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace bayonet.Core.Tests.Common
 {

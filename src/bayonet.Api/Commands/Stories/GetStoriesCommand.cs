@@ -1,5 +1,4 @@
 ﻿using AndyC.Patterns.Commands;
-using bayonet.Api.Commands.Items;
 using bayonet.Core.Common;
 using bayonet.Core.Models;
 using bayonet.Data;
@@ -7,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace bayonet.Api.Commands.Stories
