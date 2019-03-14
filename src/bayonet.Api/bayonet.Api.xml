@@ -24,7 +24,7 @@
             <param name="count">The number of recently-updated Items to retrieve.</param>
             <returns>A collection of Items wrapped in a Result object.</returns>
         </member>
-        <member name="M:bayonet.Api.Controllers.StoriesController.GetTopStories(System.String,System.Int32)">
+        <member name="M:bayonet.Api.Controllers.StoriesController.GetStories(System.String,System.Int32)">
             <summary>
             Retrieves a number of Stories, based on type.
             </summary>
