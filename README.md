@@ -3,14 +3,28 @@
 # bayonet :hocho:
 A restful API wrapper for the official Hacker News API, written in C#.
 
-## Docker Setup
+## Setup
 Clone this repository, navigate to newly-created root directory on your machine. Also ensure that you have Docker installed on your machine.
 
 From root, run the following command to build local project files:
+
 ```
 dotnet clean; dotnet restore --no-cache; dotnet build
 ```
-From root, run the following commands to build and run a docker container with access the api:
+
+## Run with Dotnet Core
+From root, run the following commands:
+
+```
+cd .\src\bayonet.Api\
+dotnet run
+```
+
+You should now be able to access the running API from `http://localhost:5000/swagger`
+
+## Run with Docker
+From root, run the following commands to build and run a docker container `bayonet-api` from the docker image `bayonet`:
+
 ```
 docker build -t bayonet .
 docker run --rm -p 8080:80 --name bayonet-api bayonet bayonet.Api from Docker
