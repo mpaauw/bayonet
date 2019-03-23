@@ -3,8 +3,8 @@
 # bayonet :hocho:
 A restful API wrapper for the official Hacker News API, written in C#.
 
-## Setup
-Clone this repository, navigate to newly-created root directory on your machine.
+## Docker Setup
+Clone this repository, navigate to newly-created root directory on your machine. Also ensure that you have Docker installed on your machine.
 
 From root, run the following command to build local project files:
 ```
