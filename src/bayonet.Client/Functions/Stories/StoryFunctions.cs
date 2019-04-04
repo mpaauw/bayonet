@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using bayonet.Core.Common;
+﻿using bayonet.Core.Common;
 using bayonet.Core.Models;
 using Flurl.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace bayonet.Client.Functions.Stories
 {

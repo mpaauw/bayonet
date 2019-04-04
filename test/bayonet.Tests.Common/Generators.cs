@@ -1,7 +1,7 @@
 ﻿using bayonet.Core.Models;
 using Bogus;
 
-namespace bayonet.Api.Tests
+namespace bayonet.Tests.Common
 {
     public static class Generators
     {
@@ -17,10 +17,10 @@ namespace bayonet.Api.Tests
             return fakeItems;
         }
 
-        public static Faker<Item> FakeItem()
+        public static Faker<Item> FakeItem(string id = null)
         {
             return new Faker<Item>()
-                .RuleFor(t => t.Id, f => f.Lorem.Word())
+                .RuleFor(t => t.Id, f => (id is null) ? f.Lorem.Word() : id)
                 .RuleFor(t => t.Deleted, f => f.Random.Bool())
                 .RuleFor(t => t.Type, ItemType.Story)
                 .RuleFor(t => t.By, f => f.Lorem.Word())
@@ -43,10 +43,10 @@ namespace bayonet.Api.Tests
                 .RuleFor(t => t.Profiles, f => f.Lorem.Words());
         }
 
-        public static Faker<User> FakeUser()
+        public static Faker<User> FakeUser(string id = null)
         {
             return new Faker<User>()
-                .RuleFor(t => t.Id, f => f.Lorem.Word())
+                .RuleFor(t => t.Id, f => (id is null) ? f.Lorem.Word() : id)
                 .RuleFor(t => t.Delay, f => f.Random.Int())
                 .RuleFor(t => t.Created, f => f.Random.Int())
                 .RuleFor(t => t.Karma, f => f.Random.Int())

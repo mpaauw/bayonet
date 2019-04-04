@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using bayonet.Core.Common;
+﻿using bayonet.Core.Common;
 using bayonet.Core.Models;
 using Flurl.Http;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace bayonet.Client.Functions.Items
 {
@@ -19,12 +17,13 @@ namespace bayonet.Client.Functions.Items
 
         public async Task<Result<Item>> GetItem(string id)
         {
-            return await this.flurlClient
+            var result = await this.flurlClient
                 .Request(
                 Constants.ApiSegment,
                 Constants.ItemsSegment,
                 id)
                 .GetJsonAsync<Result<Item>>();
+            return result;
         }
 
         public async Task<Result<Item>> GetMaxItem()
