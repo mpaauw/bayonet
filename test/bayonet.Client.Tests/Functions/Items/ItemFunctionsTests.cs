@@ -1,7 +1,5 @@
 ﻿using Bogus;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -18,9 +16,8 @@ namespace bayonet.Client.Tests.Functions.Items
             this.faker = new Faker();
         }
 
-        // ensure get item returns expected data
         [Fact]
-        public async Task Request_For_Item_Should_Return_Item()
+        public async Task Request_For_Item_Should_Return_Valid_Result()
         {
             string id = this.faker.Lorem.Word();
             var result = await this.fixture
@@ -29,8 +26,22 @@ namespace bayonet.Client.Tests.Functions.Items
             Assert.Equal(id, result.Value.Id);
         }
 
-        // ensure getmaxitem returns expected data
+        [Fact]
+        public async Task Request_For_Max_Item_Should_Return_Valid_Result()
+        {
+            var result = await this.fixture
+                .ExecuteGetMaxItem();
+            Assert.NotNull(result.Value);
+        }
 
-        // ensure getupdateditems returns expected data
+        [Fact]
+        public async Task Request_For_Updated_Items_Should_Return_Valid_Result()
+        {
+            int count = this.faker.Random.Int(1, 10);
+            var result = await this.fixture
+                .WithCount(count)
+                .ExecuteGetUpdatedItems();
+            Assert.Equal(count, result.Value.Count());
+        }
     }
 }

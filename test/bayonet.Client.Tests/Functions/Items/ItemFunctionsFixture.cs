@@ -3,12 +3,10 @@ using bayonet.Core.Common;
 using bayonet.Core.Models;
 using bayonet.Tests.Common;
 using Bogus;
-using FakeItEasy;
 using Flurl.Http;
 using Flurl.Http.Testing;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace bayonet.Client.Tests.Functions.Items
@@ -44,8 +42,12 @@ namespace bayonet.Client.Tests.Functions.Items
         {
             using (var httpTest = new HttpTest())
             {
-                var resultValue = Generators.FakeItem(this.id).Generate();
-                httpTest.RespondWithJson(resultValue);
+                var response = new Result<Item>()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Value = Generators.FakeItem(this.id).Generate()
+                };
+                httpTest.RespondWithJson(response);
                 return await this.itemFunctions.GetItem(this.id);
             }
         }
@@ -54,8 +56,12 @@ namespace bayonet.Client.Tests.Functions.Items
         {
             using (var httpTest = new HttpTest())
             {
-                var resultValue = Generators.FakeItem().Generate();
-                httpTest.RespondWithJson(resultValue);
+                var response = new Result<Item>()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Value = Generators.FakeItem().Generate()
+                };
+                httpTest.RespondWithJson(response);
                 return await this.itemFunctions.GetMaxItem();
             }
         }
@@ -64,8 +70,12 @@ namespace bayonet.Client.Tests.Functions.Items
         {
             using (var httpTest = new HttpTest())
             {
-                var resultValue = Generators.FakeItems(this.count);
-                httpTest.RespondWithJson(resultValue);
+                var response = new Result<IEnumerable<Item>>()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Value = Generators.FakeItems(this.count)
+                };
+                httpTest.RespondWithJson(response);
                 return await this.itemFunctions.GetUpdatedItems(this.count);
             }
         }
