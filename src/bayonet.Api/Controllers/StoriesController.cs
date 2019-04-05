@@ -25,7 +25,7 @@ namespace bayonet.Api.Controllers
         /// <param name="count">The number of Stories to retrieve.</param>
         /// <returns>A collection of Stories wrapped in a Result object.</returns>
         [HttpGet("{storyType}/{count}")]
-        public async Task<Result<IEnumerable<Item>>> GetTopStories(
+        public async Task<Result<IEnumerable<Item>>> GetStories(
             [FromRoute] string storyType,
             [FromRoute] int count)
         {

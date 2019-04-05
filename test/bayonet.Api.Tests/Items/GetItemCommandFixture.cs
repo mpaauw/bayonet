@@ -3,6 +3,7 @@ using bayonet.Api.Commands.Items;
 using bayonet.Core.Common;
 using bayonet.Core.Models;
 using bayonet.Data;
+using bayonet.Tests.Common;
 using Bogus;
 using FakeItEasy;
 using System;

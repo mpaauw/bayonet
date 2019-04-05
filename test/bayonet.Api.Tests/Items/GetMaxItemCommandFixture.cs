@@ -2,6 +2,7 @@
 using bayonet.Core.Common;
 using bayonet.Core.Models;
 using bayonet.Data;
+using bayonet.Tests.Common;
 using FakeItEasy;
 using System;
 using System.Threading.Tasks;

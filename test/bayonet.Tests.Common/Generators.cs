@@ -1,26 +1,27 @@
 ﻿using bayonet.Core.Models;
 using Bogus;
+using System.Collections.Generic;
 
-namespace bayonet.Api.Tests
+namespace bayonet.Tests.Common
 {
     public static class Generators
     {
-        public static Faker<Item>[] FakeItems(int count = -1)
+        public static IList<Item> FakeItems(int count = -1)
         {
             Faker faker = new Faker();
+            IList<Item> fakeItems = new List<Item>();
             count = (count == -1) ? faker.Random.Int(1, 10) : count;
-            Faker<Item>[] fakeItems = new Faker<Item>[count];
-            for(int i = 0; i < fakeItems.Length; i++)
+            for(int i = 0; i < count; i++)
             {
-                fakeItems[i] = FakeItem();
+                fakeItems.Add(FakeItem());
             }
             return fakeItems;
         }
 
-        public static Faker<Item> FakeItem()
+        public static Faker<Item> FakeItem(string id = null)
         {
             return new Faker<Item>()
-                .RuleFor(t => t.Id, f => f.Lorem.Word())
+                .RuleFor(t => t.Id, f => (id is null) ? f.Lorem.Word() : id)
                 .RuleFor(t => t.Deleted, f => f.Random.Bool())
                 .RuleFor(t => t.Type, ItemType.Story)
                 .RuleFor(t => t.By, f => f.Lorem.Word())
@@ -43,10 +44,10 @@ namespace bayonet.Api.Tests
                 .RuleFor(t => t.Profiles, f => f.Lorem.Words());
         }
 
-        public static Faker<User> FakeUser()
+        public static Faker<User> FakeUser(string id = null)
         {
             return new Faker<User>()
-                .RuleFor(t => t.Id, f => f.Lorem.Word())
+                .RuleFor(t => t.Id, f => (id is null) ? f.Lorem.Word() : id)
                 .RuleFor(t => t.Delay, f => f.Random.Int())
                 .RuleFor(t => t.Created, f => f.Random.Int())
                 .RuleFor(t => t.Karma, f => f.Random.Int())
