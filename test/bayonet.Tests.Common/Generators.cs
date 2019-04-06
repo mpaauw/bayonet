@@ -18,12 +18,12 @@ namespace bayonet.Tests.Common
             return fakeItems;
         }
 
-        public static Faker<Item> FakeItem(string id = null)
+        public static Faker<Item> FakeItem(string id = null, ItemType type = ItemType.Story)
         {
             return new Faker<Item>()
                 .RuleFor(t => t.Id, f => (id is null) ? f.Lorem.Word() : id)
                 .RuleFor(t => t.Deleted, f => f.Random.Bool())
-                .RuleFor(t => t.Type, ItemType.Story)
+                .RuleFor(t => t.Type, type)
                 .RuleFor(t => t.By, f => f.Lorem.Word())
                 .RuleFor(t => t.Time, f => f.Random.Int())
                 .RuleFor(t => t.Text, f => f.Hacker.Phrase())
@@ -42,6 +42,18 @@ namespace bayonet.Tests.Common
             return new Faker<Updates>()
                 .RuleFor(t => t.Items, f => f.Lorem.Words())
                 .RuleFor(t => t.Profiles, f => f.Lorem.Words());
+        }
+
+        public static IList<User> FakeUsers(int count = -1)
+        {
+            Faker faker = new Faker();
+            IList<User> fakeUsers = new List<User>();
+            count = (count == -1) ? faker.Random.Int(1, 10) : count;
+            for(int i = 0; i < count; i++)
+            {
+                fakeUsers.Add(FakeUser());
+            }
+            return fakeUsers;
         }
 
         public static Faker<User> FakeUser(string id = null)
