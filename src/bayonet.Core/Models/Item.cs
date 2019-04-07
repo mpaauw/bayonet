@@ -55,6 +55,11 @@
         public string[] Kids { get; set; }
 
         /// <summary>
+        /// An array of fully-built objects based on the 'Kids' array of item ids.
+        /// </summary>
+        public Item[] Children { get; set; }
+
+        /// <summary>
         /// The URL of the story.
         /// </summary>
         public string Url { get; set; }
