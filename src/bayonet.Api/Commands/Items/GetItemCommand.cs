@@ -11,10 +11,12 @@ namespace bayonet.Api.Commands.Items
     public class GetItemCommand : IFunction<Result<Item>>
     {
         private readonly string id;
+        private readonly bool retrieveChildren;
 
-        public GetItemCommand(string id)
+        public GetItemCommand(string id, bool retrieveChildren = false)
         {
             this.id = id;
+            this.retrieveChildren = retrieveChildren;
         }
 
         public class Handler : IFunctionHandlerAsync<GetItemCommand, Result<Item>>
@@ -39,7 +41,9 @@ namespace bayonet.Api.Commands.Items
                             ErrorMessage = "Invalid id."
                         };
                     }
-                    var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, function.id));
+                    var item = (!function.retrieveChildren)
+                        ? await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, function.id))
+                        : await RetrieveItemChildrenRecursively(function.id);
                     return new Result<Item>()
                     {
                         StatusCode = HttpStatusCode.OK,
@@ -56,6 +60,23 @@ namespace bayonet.Api.Commands.Items
                     };
                 }
             }
+
+            private async Task<Item> RetrieveItemChildrenRecursively(string id)
+            {
+                var item = await this.webService.GetContentAsync<Item>(Constants.ItemEndpoint.Replace(Constants.Bayonet, id));
+                if ((item.Kids is null) || (item.Kids.Length < 1))
+                {
+                    return item;
+                }
+                item.Children = new Item[item.Kids.Length];
+                for (int i = 0; i < item.Kids.Length; i++)
+                {
+                    item.Children[i] = await RetrieveItemChildrenRecursively(item.Kids[i]);
+                }
+                return item;
+            }
         }
+
+
     }
 }

@@ -17,16 +17,26 @@ namespace bayonet.Api.Controllers
         {
             this.commandRouter = commandRouter;
         }
-
         /// <summary>
         /// Retrieves an Item given it's Id.
         /// </summary>
         /// <param name="id">String value representing the Id of the Item to retrieve.</param>
         /// <returns>An Item wrapped in a Result object.</returns>
+        /// 
+
+
+        /// <summary>
+        /// Retrieves an Item given it's Id.
+        /// </summary>
+        /// <param name="id">String value representing the Id of the Item to retrieve.</param>
+        /// <param name="children">A flag value specifying whether or not to fully retrieve Item-based children.</param>
+        /// <returns>An Item wrapped in a Result object.</returns>
         [HttpGet("{id}")]
-        public async Task<Result<Item>> GetItem([FromRoute] string id)
+        public async Task<Result<Item>> GetItem(
+            [FromRoute] string id,
+            [FromQuery] bool children = false)
         {
-            var command = new GetItemCommand(id);
+            var command = new GetItemCommand(id, children);
             return await this.commandRouter.ExecuteFunctionAsync(command);
         }
 
