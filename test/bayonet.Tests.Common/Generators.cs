@@ -11,7 +11,7 @@ namespace bayonet.Tests.Common
             Faker faker = new Faker();
             IList<Item> fakeItems = new List<Item>();
             count = (count == -1) ? faker.Random.Int(1, 10) : count;
-            for(int i = 0; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
                 fakeItems.Add(FakeItem());
             }
@@ -20,6 +20,7 @@ namespace bayonet.Tests.Common
 
         public static Faker<Item> FakeItem(string id = null, ItemType type = ItemType.Story)
         {
+            Faker faker = new Faker();
             return new Faker<Item>()
                 .RuleFor(t => t.Id, f => (id is null) ? f.Lorem.Word() : id)
                 .RuleFor(t => t.Deleted, f => f.Random.Bool())
@@ -30,7 +31,7 @@ namespace bayonet.Tests.Common
                 .RuleFor(t => t.Dead, f => f.Random.Bool())
                 .RuleFor(t => t.Parent, f => f.Random.Int())
                 .RuleFor(t => t.Poll, f => f.Random.Int())
-                .RuleFor(t => t.Kids, f => f.Lorem.Words())
+                .RuleFor(t => t.Kids, f => (faker.Random.Bool()) ? f.Lorem.Words(faker.Random.Int(0, 3)) : null)
                 .RuleFor(t => t.Url, f => f.Internet.Url())
                 .RuleFor(t => t.Score, f => f.Random.Int())
                 .RuleFor(t => t.Parts, f => f.Lorem.Words())

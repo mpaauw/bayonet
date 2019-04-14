@@ -4,11 +4,18 @@
         <name>bayonet.Api</name>
     </assembly>
     <members>
-        <member name="M:bayonet.Api.Controllers.ItemsController.GetItem(System.String)">
+        <member name="M:bayonet.Api.Controllers.ItemsController.GetItem(System.String,System.Boolean)">
             <summary>
             Retrieves an Item given it's Id.
             </summary>
             <param name="id">String value representing the Id of the Item to retrieve.</param>
+            <returns>An Item wrapped in a Result object.</returns>
+            
+            <summary>
+            Retrieves an Item given it's Id.
+            </summary>
+            <param name="id">String value representing the Id of the Item to retrieve.</param>
+            <param name="children">A flag value specifying whether or not to fully retrieve Item-based children.</param>
             <returns>An Item wrapped in a Result object.</returns>
         </member>
         <member name="M:bayonet.Api.Controllers.ItemsController.GetMaxItem">
