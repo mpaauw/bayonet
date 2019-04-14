@@ -18,6 +18,7 @@ namespace bayonet.Api.Tests.Items
         private readonly Faker faker;
 
         private string id;
+        private bool retrieveChildren;
 
         public GetItemCommandFixture()
         {
@@ -39,11 +40,16 @@ namespace bayonet.Api.Tests.Items
             return this;
         }
 
+        public GetItemCommandFixture WithRetrieveChildren()
+        {
+            this.retrieveChildren = true;
+            return this;
+        }
+
         public GetItemCommandFixture WithValidWebServiceGetContentAsyncResponse()
         {
-            var item = Generators.FakeItem().Generate();
             A.CallTo(() => this.webService.GetContentAsync<Item>(A<string>._))
-                .Returns(item);
+                .ReturnsLazily(() => Generators.FakeItem().Generate());
             return this;
         }
 
@@ -63,7 +69,7 @@ namespace bayonet.Api.Tests.Items
 
         private GetItemCommand GetCommandUnderTest()
         {
-            return new GetItemCommand(this.id);
+            return new GetItemCommand(this.id, this.retrieveChildren);
         }
     }
 }

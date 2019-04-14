@@ -76,7 +76,5 @@ namespace bayonet.Api.Commands.Items
                 return item;
             }
         }
-
-
     }
 }
