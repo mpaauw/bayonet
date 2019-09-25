@@ -17,13 +17,6 @@ namespace bayonet.Api.Controllers
         {
             this.commandRouter = commandRouter;
         }
-        /// <summary>
-        /// Retrieves an Item given it's Id.
-        /// </summary>
-        /// <param name="id">String value representing the Id of the Item to retrieve.</param>
-        /// <returns>An Item wrapped in a Result object.</returns>
-        /// 
-
 
         /// <summary>
         /// Retrieves an Item given it's Id.
